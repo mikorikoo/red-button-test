@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Don't Press the Button</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        button {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ff0000, #8b0000);
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 4px #666;
+            transition: all 0.2s;
+        }
+        button:active {
+            box-shadow: 0 2px #666;
+            transform: translateY(2px);
+        }
+        #imageContainer {
+            display: none;
+            position: absolute;
+        }
+        #imageContainer img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>DON'T PRESS</h1>
+    <button id="revealButton">Press me</button>
+    <div id="imageContainer">
+        <img id="movingImage" src="EY pp.jpg" alt="Revealed Image">
+    </div>
+
+    <script>
+        function getRandomPosition() {
+            const img = document.getElementById('movingImage');
+            const imgWidth = img.clientWidth;
+            const imgHeight = img.clientHeight;
+            const x = Math.floor(Math.random() * (window.innerWidth - imgWidth));
+            const y = Math.floor(Math.random() * (window.innerHeight - imgHeight));
+            return { x, y };
+        }
+
+        function moveImage() {
+            const imgContainer = document.getElementById('imageContainer');
+            const { x, y } = getRandomPosition();
+            imgContainer.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        document.getElementById('revealButton').addEventListener('click', function() {
+            const imgContainer = document.getElementById('imageContainer');
+            imgContainer.style.display = 'block';
+            setInterval(moveImage, 200); // Move image every 200 milliseconds
+        });
+    </script>
+</body>
+</html>
